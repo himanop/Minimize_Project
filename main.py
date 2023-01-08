@@ -42,21 +42,17 @@ def register_account():
         #2.) passing the user registration information as a parameter through URL FOR. This means we need to display the user information in the URL and this is not secure
         #3.) create a global dictionary and use that. I believe that this won't allow for multiple users. We will go with this approach for right now
         #user_email = user_email, user_firstName = user_firstName, user_lastName = user_lastName, user_password = user_password
-        return redirect(url_for("validate_registration"))
+        return redirect(url_for("validate_email"))
 
     return render_template("register.html")
 
 # @app.route("/validate_registration/<user_email>/<user_firstName>/<user_lastName>/<user_password>", methods=["POST", "GET"])
-@app.route("/validate_registration", methods=["POST", "GET"])
+@app.route("/validate_email", methods=["POST", "GET"])
 #user_email, user_firstName, user_lastName, user_password
-def validate_registration():
+def validate_email():
     # user_email = session["user_email"]
     # user_password = session["user_password"]
-    # return render_template("validate_registration.html", user_email=user_email, user_password=user_password)
-    if request.method == "POST":
-        user_valid = request.form['button_value']
-        return f"<h1>Hello</h1>"
-    return render_template("validate_registration.html", user_email=user_reg_data["user_email"], user_firstName = user_reg_data["user_firstName"],
+    return render_template("validate_email.html", user_email=user_reg_data["user_email"], user_firstName = user_reg_data["user_firstName"],
                            user_lastName = user_reg_data["user_lastName"], user_password = user_reg_data["user_password"])
 
 
