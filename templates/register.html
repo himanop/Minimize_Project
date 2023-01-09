@@ -2,11 +2,11 @@
 
 <form action="#" method="post">
     <p>Please Enter Email:</p>
-    <p><input type="email" name="user_email" value="{{ msg }}"/></p>
+    <p><input type="email" name="user_email" value="{{ user_info.email }}"/></p>
     <p>Please Enter First Name:</p>
-    <p><input type="text" name="user_firstName"/></p>
+    <p><input type="text" name="user_firstName" value="{{ user_info.fname }}"/></p>
     <p>Please Enter Last Name:</p>
-    <p><input type="text" name="user_lastName"/></p>
+    <p><input type="text" name="user_lastName" value="{{ user_info.lname }}"/></p>
     <p>Please Enter Chosen Password:</p>
     <p><input type="password" name="user_password"/></p>
     <p>Please Enter Verify Chosen Password:</p>
@@ -14,7 +14,7 @@
     <p><input type="submit" value="Submit"/></p>
 </form>
 
-<div>{{ msg }}</div>
+<div style="color:red">{{ msg }}</div>
 <!--<div><a hef={{login_link}}>Login</a></div>-->
 <p>Already have an account? Login below!</p>
 <a href="/login">Login</a>
