@@ -14,21 +14,24 @@ def home():
 @app.route("/register", methods=["POST", "GET"])
 def register_account():
     msg=""
+    user_info = {}
     if request.method == "POST":
         user_email = request.form["user_email"]
         user_firstName = request.form["user_firstName"]
         user_lastName = request.form["user_lastName"]
         user_password = request.form["user_password"]
         user_password_verify = request.form["user_password_verify"]
+        #Gather user info in json object which will be passed to render template to display data user has already entered.
+        user_info = {'email' : user_email, 'fname' : user_firstName, 'lname' : user_lastName}
         if user_password != user_password_verify:
             msg = "Passwords do not match. Please confirm passwords"
-            return render_template("register.html", msg=msg)
+            return render_template("register.html", msg=msg, user_info=user_info)
         elif not user_email or not user_firstName or not user_lastName or not user_password:
             msg = "Please fill out all fields of the form"
-            return render_template("register.html", msg=msg)
+            return render_template("register.html", msg=msg, user_info=user_info)
         elif database_functions.user_exists(user_email, db_name) == True:
             msg = "Account Already Exists. Please log in through link below"
-            return render_template("register.html", msg=msg)
+            return render_template("register.html", msg=msg, user_info=user_info)
         # session["user_email"] = user_email
         # session["user_firstName"] = user_firstName
         # session["user_lastName"] = user_lastName
@@ -44,7 +47,7 @@ def register_account():
         #user_email = user_email, user_firstName = user_firstName, user_lastName = user_lastName, user_password = user_password
         return redirect(url_for("validate_email"))
 
-    return render_template("register.html")
+    return render_template("register.html", user_info=user_info)
 
 # @app.route("/validate_registration/<user_email>/<user_firstName>/<user_lastName>/<user_password>", methods=["POST", "GET"])
 @app.route("/validate_email", methods=["POST", "GET"])
